@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_30_184317) do
+ActiveRecord::Schema.define(version: 2023_04_30_190252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,12 @@ ActiveRecord::Schema.define(version: 2023_04_30_184317) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -50,6 +56,11 @@ ActiveRecord::Schema.define(version: 2023_04_30_184317) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "hashtags"
+    t.string "location"
+    t.integer "privacy"
+    t.bigint "category_id"
+    t.boolean "archived"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -71,6 +82,9 @@ ActiveRecord::Schema.define(version: 2023_04_30_184317) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "bio"
+    t.string "profile_picture"
+    t.string "display_name"
+    t.integer "account_type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
